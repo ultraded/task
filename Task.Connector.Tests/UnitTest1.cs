@@ -9,7 +9,7 @@ namespace Task.Connector.Tests
         static string requestRightGroupName = "Request";
         static string itRoleRightGroupName = "Role";
         static string delimeter = ":";
-        static string mssqlConnectionString = "";
+        static string mssqlConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Itst1d\\Source\\Repos\\ultraded\\task\\Task.Connector\\Database1.mdf;Integrated Security=True";
         static string postgreConnectionString = "";
         static Dictionary<string, string> connectorsCS = new Dictionary<string, string>
         {
@@ -36,6 +36,14 @@ namespace Task.Connector.Tests
             connector.StartUp(connectorsCS[provider]);
             connector.Logger = new FileLogger($"{DateTime.Now}connector{provider}.Log", $"{DateTime.Now}connector{provider}");
             return connector;
+        }
+
+        [Theory]
+        [InlineData("MSSQL")]
+        [InlineData("POSTRGE")]
+        public void ConnectToFile(string provider)
+        {
+            var connector = GetConnector(provider); 
         }
 
 
